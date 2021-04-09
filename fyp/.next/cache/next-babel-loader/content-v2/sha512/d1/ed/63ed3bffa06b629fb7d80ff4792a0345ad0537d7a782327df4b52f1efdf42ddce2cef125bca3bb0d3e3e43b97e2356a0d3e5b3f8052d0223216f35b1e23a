@@ -1,0 +1,1 @@
+{"ast":null,"code":"var __jsx = React.createElement;\nimport { withRouter } from 'react-router-dom';\nimport React, { Component } from 'react';\n\nclass Error extends Component {\n  render() {\n    return __jsx(\"div\", null, __jsx(\"h1\", null, \"Error\"));\n  }\n\n}\n\nexport default withRouter(Error);","map":null,"metadata":{},"sourceType":"module"}

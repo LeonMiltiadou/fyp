@@ -1,0 +1,1 @@
+{"ast":null,"code":"import Commerce from \"@chec/commerce.js\";\nvar commerceAPIKEY = process.env.COMMERCEPUBLICKEY;\nconsole.log(process.env);\n\nif (!commerceAPIKEY) {\n  throw Error('Your public API key must be provided as an environment variable');\n}\n\nexport default new Commerce(commerceAPIKEY, true);","map":null,"metadata":{},"sourceType":"module"}
