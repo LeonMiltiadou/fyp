@@ -1,0 +1,67 @@
+.tracking-page {
+    display: grid;
+    grid-template-columns: 1382px 70px 431px auto;
+    grid-template-rows: 108px 247px 124px 220px auto;
+    height: 82vh;
+
+    .tracking-title,
+    .contact-us-title {
+        color: white;
+        display: grid;
+        align-items: center;
+        margin-bottom: 20px;
+        font-size: 40px;
+    }
+
+    .contact-us-title {
+        grid-column-start: 3;
+        grid-row-start: 1;
+        margin-left: -20px;
+    }
+
+    .tracking-title {
+        grid-column-start: 1;
+        grid-row-start: 1;
+        margin-left: 227px;
+    }
+
+    #tracking-not-available {
+        grid-column-start: 1;
+        grid-row-start: 2;
+        display: grid;
+        grid-template-columns: 227px 44px auto;
+        grid-template-rows: 87px 10px auto;
+        background-color: #94849b;
+
+        #tracking-bar {
+            grid-column-start: 2;
+            grid-row-start: 2;
+            background-color: #934b00;
+            width: 520px;
+            height: 10px;
+        }
+
+        #tracking-info {
+            grid-column-start: 3;
+            grid-row-start: 3;
+            color: white;
+            font-size: 60px;
+        }
+    }
+
+    #tracking-available {
+        grid-column-start: 1;
+        grid-row-start: 2;
+        grid-row-end: 5;
+        background-color: #94849b;
+        padding:15px;
+    }
+
+    #contact-us {
+        grid-column-start: 3;
+        grid-row-start: 2;
+        grid-row-end: 4;
+
+        background-color: #d7b377;
+    }
+}

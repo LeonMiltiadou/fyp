@@ -5,7 +5,12 @@
 @import "components/nav";
 @import "components/products";
 @import "components/cart";
-@import "components/checkout";
-@import "components/confirmation";
-@import "components/app";
+@import "pages/checkout";
+@import "pages/confirmation";
 @import "components/navbar";
+@import "components/footer";
+@import "pages/home";
+@import "pages/menu";
+@import "pages/tracking";
+@import "components/contactusform";
+@import "pages/myaccount";

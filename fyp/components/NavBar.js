@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Cart from './Cart';
+import Cart from './CartModal';
 import { AppContext } from '../context/state'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -17,25 +17,21 @@ class NavBar extends Component {
 
     }
     static contextType = AppContext;
-    
+
     componentDidMount() {
         this.context.fetchCart();
     }
     renderCartNav() {
-        const { cart, isCartVisible } = this.context;
+        const { cart } = this.context;
 
         return (
+
             <div className="nav__cart" onClick={this.context.toggleCart}>
-                {!isCartVisible ? (
-                    <button className="nav__cart-open">
-                        <FontAwesomeIcon size="2x" icon="shopping-bag" color="#292B83" />
-                        {cart !== null ? <span>{cart.total_items}</span> : ''}
-                    </button>
-                ) : (
-                        <button className="nav__cart-close">
-                            <FontAwesomeIcon size="1x" icon="times" color="white" />
-                        </button>
-                    )}
+                <button className="nav__cart-open">
+                    <FontAwesomeIcon size="2x" icon="shopping-bag" color="#fff" />
+                    {cart !== null ? <span>{cart.total_items}</span> : ''}
+                </button>
+
             </div>
         )
     }
@@ -44,29 +40,27 @@ class NavBar extends Component {
         const { loading, user } = this.props.useFetchUser;
 
         return (
-            <Navbar bg="light">
-                <Nav className="mr-auto">
-                    <Navbar.Brand>FYP Coffee Shop</Navbar.Brand>
-                </Nav>
+            <Navbar variant="dark">
                 <Nav className="ml-auto">
+                    <Navbar.Brand>Coffee Shop On Wheels</Navbar.Brand>
+                </Nav>
+                <Nav className="mr-5">
 
                     <Nav.Link href="/">Home</Nav.Link>
-                    <Nav.Link href="/Tracking">Where are we?</Nav.Link>
+                    <Nav.Link href="/menu">Menu</Nav.Link>
+                    <Nav.Link href="/tracking">Where are we?</Nav.Link>
                     {!loading &&
-                    (user ? (
-                    <>
-                        <Nav.Link href="/profile">Client-rendered profile</Nav.Link>
-                        <Nav.Link href="/advanced/ssr-profile">Server rendered profile (advanced)</Nav.Link>
-                        <Nav.Link href="/api/logout">Logout</Nav.Link>
-                    </>
-                    ) : (
-                       <Nav.Link href="/api/login">Login</Nav.Link>
-                    ))}
+                        (user ? (
+                            <>
+                                <Nav.Link href="/myaccount">My Account</Nav.Link>
+                                <Nav.Link href="/api/auth/logout">Logout</Nav.Link>
+                            </>
+                        ) : (
+                            <Nav.Link href="/api/auth/login">Login</Nav.Link>
+                        ))}
                     <Nav.Item>
                         {this.renderCartNav()}
-                        {this.context.isCartVisible &&
-                            <Cart />
-                        }
+                        <Cart />
                     </Nav.Item>
                 </Nav>
             </Navbar>

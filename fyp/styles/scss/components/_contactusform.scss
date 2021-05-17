@@ -1,0 +1,32 @@
+.contact-us-input {
+    background-color: transparent;
+    border-color: #fff;
+    border-radius: 0;
+    border-width: 2px;
+}
+
+.form-control::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: rgba(255, 255, 255, 0.75);
+    opacity: 1; /* Firefox */
+}
+
+.form-control:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.form-control::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: rgba(255, 255, 255, 0.75);
+}
+
+#contact-us-form-btn {
+    color: #D7B377;
+    background-color: white;
+    border:none;
+    border-radius: 0;
+    width:158px;
+    height:36px;
+    font-size: 18px;
+}

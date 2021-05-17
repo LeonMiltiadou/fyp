@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import commerce from '../lib/commerce';
 import { AppContext } from '../context/state';
+import { withUseFetchUser } from '../lib/user'
 
 class Checkout extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            checkoutToken: {},
             // Customer details
             firstName: 'Jane',
             lastName: 'Doe',
@@ -16,7 +16,7 @@ class Checkout extends Component {
             // Shipping details
             shippingName: 'Jane Doe',
             shippingStreet: '123 Fake St',
-            shippingCity: '',
+            shippingCity: 'London',
             shippingStateProvince: '',
             shippingPostalZipCode: '',
             shippingCountry: '',
@@ -25,7 +25,7 @@ class Checkout extends Component {
             expMonth: '11',
             expYear: '2023',
             ccv: '123',
-            billingPostalZipcode: '',
+            billingPostalZipcode: 'SM4 4ED',
             // Shipping and fulfillment data
             shippingCountries: {},
             shippingSubdivisions: {},
@@ -40,12 +40,13 @@ class Checkout extends Component {
     };
     static contextType = AppContext;
 
-
     componentDidMount() {
-
         this.context.generateCheckoutToken();
     };
 
+    fetchCart() {
+        this.context.fetchCart();
+    }
     componentDidUpdate(prevProps, prevState) {
         if (this.state.shippingCountry !== prevState.shippingCountry) {
             this.fetchShippingOptions(this.state.checkoutToken.id, this.state.shippingCountry);
@@ -127,37 +128,55 @@ class Checkout extends Component {
 
     handleCaptureCheckout(e) {
         e.preventDefault();
+        let { loading, user } = this.props.useFetchUser;
+        let commerceCustomer = null;
 
-        const orderData = {
-            line_items: this.state.checkoutToken.live.line_items,
-            customer: {
-                firstname: this.state.firstName,
-                lastname: this.state.lastName,
-                email: this.state.email
-            },
-            shipping: {
-                name: this.state.shippingName,
-                street: this.state.shippingStreet,
-                town_city: this.state.shippingCity,
-                county_state: this.state.shippingStateProvince,
-                postal_zip_code: this.state.shippingPostalZipCode,
-                country: this.state.shippingCountry,
-            },
-            fulfillment: {
-                shipping_method: this.state.shippingOption.id
-            },
-            payment: {
-                gateway: "paypal",
-                card: {
-                    number: this.state.cardNum,
-                    expiry_month: this.state.expMonth,
-                    expiry_year: this.state.expYear,
-                    cvc: this.state.ccv,
-                    postal_zip_code: this.state.billingPostalZipcode
-                }
+        if (!loading && user) {
+
+            commerceCustomer = this.context.getCommerceCustomer(user.commerceID);
+
+            if ((commerceCustomer == null)) {
+                commerceCustomer = this.context.createCommerceCustomer(user.email);
+                //TODO UPDATE USER WITH COMMERCE ID
             }
-        };
-        this.context.handleCaptureCheckout(this.state.checkoutToken.id, orderData);
+            //TODO ADD CHECK TO SEE IF commercecustomer exists?
+        }
+        try {
+            const orderData = {
+                tokenID: this.context.checkoutToken.id,
+                line_items: this.context.checkoutToken.live.line_items,
+                customer: {
+                    id: commerceCustomer.id,
+                    firstname: this.state.firstName,
+                    lastname: this.state.lastName,
+                    email: this.state.email
+                },
+                shipping: {
+                    name: this.state.shippingName,
+                    street: this.state.shippingStreet,
+                    town_city: this.state.shippingCity,
+                    county_state: this.state.shippingStateProvince,
+                    postal_zip_code: this.state.shippingPostalZipCode,
+                    country: this.state.shippingCountry,
+                },
+                fulfillment: {
+                    shipping_method: this.state.shippingOption.id
+                },
+                payment: {
+                    gateway: "test_gateway",
+                    card: {
+                        number: this.state.cardNum,
+                        expiry_month: this.state.expMonth,
+                        expiry_year: this.state.expYear,
+                        cvc: this.state.ccv,
+                        postal_zip_code: this.state.billingPostalZipcode
+                    }
+                }
+            };
+            this.context.handleCaptureCheckout(orderData);
+        } catch (error) {
+            console.log("There was an error with the order data", error);
+        }
     };
 
     renderCheckoutForm() {
@@ -307,7 +326,7 @@ class Checkout extends Component {
     };
 };
 
-export default Checkout;
+export default withUseFetchUser(Checkout);
 
 Checkout.propTypes = {
     history: PropTypes.object,

@@ -1,0 +1,40 @@
+.menu-page {
+    display: grid;
+    grid-template-columns: 1307px 218px 355px auto;
+    grid-template-rows: 108px auto auto;
+    height: 82vh;
+
+    .menu-title, .cart-title {
+        color: white;
+        display: grid;
+        align-items: center;
+        margin-bottom: 20px;
+        font-size: 40px;
+    }
+
+    .cart-title {
+        grid-column-start: 3;
+        grid-row-start: 1;
+    }
+
+    .menu-title {
+        grid-column-start: 1;
+        grid-row-start: 1;
+        margin-left: 160px;
+
+    }
+
+    .menu {
+        grid-column-start: 1;
+        grid-row-start: 2;
+        display: grid;
+        background-color: #94849b;
+    }
+
+    .cart {
+        grid-column-start: 3;
+        grid-row-start: 2;
+
+        background-color: #d7b377;
+    }
+}

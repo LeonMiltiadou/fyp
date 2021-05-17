@@ -2,7 +2,7 @@ import { Component } from 'react';
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 import Pusher from 'pusher-js';
 import axios from 'axios';
-
+import ContactUsForm from '../components/ContactUsForm'
 const NGROKURL = process.env.NGROKURL;
 
 class Tracking extends Component {
@@ -47,15 +47,22 @@ class Tracking extends Component {
         const { latitude, longitude } = this.state;
 
         if (latitude == 20 && longitude == 20) {
-            return <h1>Tracking currently not available</h1>
+            return <div id="tracking-not-available" >
+                <div id="tracking-bar"></div>
+                <h id="tracking-info">Tracking currently not available.</h>
+            </div >
         } else {
-            return <Map google={this.props.google} zoom={18} center={{
-                lat: latitude,
-                lng: longitude
-            }} initialCenter={{
-                lat: 1,
-                lng: 1
-            }}>
+            return <div id="tracking-available"><Map id="map"
+                containerStyle={{
+                    position: 'relative'
+
+                }} google={this.props.google} zoom={18} center={{
+                    lat: latitude,
+                    lng: longitude
+                }} initialCenter={{
+                    lat: latitude,
+                    lng: longitude
+                }}>
                 <Marker
                     title={'The marker`s title will appear as a tooltip.'}
                     name={'SOMA'}
@@ -65,13 +72,18 @@ class Tracking extends Component {
                         <h1>"this.state.selectedPlace.name"</h1>
                     </div>
                 </InfoWindow>
-            </Map>;
+            </Map></div>
         }
     }
     render() {
         return (
-            <div>
+            <div className="tracking-page">
+                <div className="tracking-title">Tracking</div>
                 {this.renderMap()}
+                <div className="contact-us-title">Contact Us</div>
+                <div id="contact-us">
+                    <ContactUsForm />
+                </div>
             </div>
         );
     }

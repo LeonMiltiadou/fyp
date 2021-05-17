@@ -2,6 +2,7 @@ import { createContext } from 'react';
 import React, { Component } from "react"
 import axios from 'axios';
 import Cookies from 'js-cookie'
+import Router from 'next/router';
 
 
 export const AppContext = createContext();
@@ -37,11 +38,11 @@ class AppWrapper extends Component {
 
   constructor() {
     super();
-
     this.state = {
       cartID: "",
-      order: {},
-      cart: {},
+      order: { customer: { firstname: "" } },
+
+      cart: { line_items: [{ media: { source: "" }, line_total: { formatted_with_symbol: "" } }], subtotal: { formatted_with_symbol: "" }, total_unique_items: 0 },
       isCartVisible: false,
       products: [],
       checkoutToken: {},
@@ -55,7 +56,9 @@ class AppWrapper extends Component {
       refreshCart: this.refreshCart.bind(this),
       handleCaptureCheckout: this.handleCaptureCheckout.bind(this),
       fetchProducts: this.fetchProducts.bind(this),
-      generateToken: this.generateToken.bind(this)
+      generateCheckoutToken: this.generateCheckoutToken.bind(this),
+      createCommerceCustomer: this.createCommerceCustomer.bind(this),
+      getCommerceCustomer: this.getCommerceCustomer.bind(this)
     };
 
 
@@ -209,57 +212,97 @@ class AppWrapper extends Component {
    * Captures the checkout
    * https://commercejs.com/docs/sdk/checkout#capture-order
    *
-   * @param {string} checkoutTokenId The ID of the checkout token
    * @param {object} newOrder The new order object data
    */
-  handleCaptureCheckout(checkoutTokenId, newOrder) {
+  handleCaptureCheckout(newOrder) {
 
-    ordermanagementAPI.post("/checkout/create",)
-    commerce.checkout.capture(checkoutTokenId, newOrder).then((order) => {
+    try {
+      ordermanagementAPI.post("/checkout/create", newOrder).then((order) => {
 
-      this.setState({
-        order: order,
+        this.setState({
+          order: order.data,
+        });
+
+        // Store the order in session storage so we can show it again
+        // if the user refreshes the page!
+        window.localStorage.setItem('order_receipt', JSON.stringify(order));
+        // Clears the cart
+        this.refreshCart();
+        // Send the user to the receipt
+        Router.push({
+          pathname: '/confirmation'
+        })
+      }).catch((error) => {
+        console.log('There was an error confirming your order', error);
       });
-
-      // Store the order in session storage so we can show it again
-      // if the user refreshes the page!
-      window.localStorage.setItem('order_receipt', JSON.stringify(order));
-      // Clears the cart
-      this.refreshCart();
-      // Send the user to the receipt
-      this.props.history.push('/confirmation');
-    }).catch((error) => {
-      console.log('There was an error confirming your order', error);
-    });
+    } catch (error) {
+      console.error("There has been an error placing the order", error);
+    }
   }
-
   /**
      *  Generates a checkout token
      *  https://commercejs.com/docs/sdk/checkout#generate-token
      */
   generateCheckoutToken() {
 
-    const { cart } = this.context;
+    try {
+      const { cart } = this.state;
+      if (cart.line_items.length) {
 
-    if (cart.line_items.length) {
-
-      ordermanagementAPI.get("/checkout/generate/token", { cartID: cart.id }).then(token => {
-        this.setState({ checkoutToken: token });
-      }).catch(error => {
-        console.log('There was an error in generating a token', error);
-      });
-    }
-
-    if (cart.line_items.length) {
-      return commerce.checkout.generateToken(cart.id, { type: 'cart' })
-        .then((token) => this.setState({ checkoutToken: token }))
-        .then(() => this.fetchShippingCountries(this.state.checkoutToken.id))
-        .catch((error) => {
+        ordermanagementAPI.post("/checkout/generatetoken", { cartID: cart.id }).then(token => {
+          this.setState({ checkoutToken: token.data });
+        }).catch(error => {
           console.log('There was an error in generating a token', error);
         });
+      }
+    } catch (error) {
+      console.error("There has been an error generating a checkout token for the order", error);
     }
   };
 
+  createCommerceCustomer(customerEmail) {
+    try {
+      ordermanagementAPI.post("/customer/create", { email: customerEmail }).then((customer) => {
+
+        return customer;
+
+      }).catch((error) => {
+        console.log('There was an error creating a customer with the email:' + customerEmail, error);
+        return null;
+      });
+    } catch (error) {
+      console.error('There was an error creating a customer with the email:' + customerEmail, error);
+      return null;
+    }
+  }
+
+  getCommerceCustomer(customerID) {
+    try {
+      ordermanagementAPI.get("/customer/get/" + "customerID").then((customer) => {
+
+        return customer; // Add returns for other catch 
+
+      }).catch((error) => {
+        console.log('There was an error retrieving the customer with the id:' + customerID, error);
+      });
+    } catch (error) {
+      console.error('There was an error retrieving the customer with the id:' + customerID, error);
+    }
+  }
+
+  updateAuthCustomerCommerceID(commerceID) {
+    try {
+      axios.post("/api/auth/updateuser/", { id: commerceID }).then((customer) => {
+
+        return customer; // Add returns for other catch 
+
+      }).catch((error) => {
+        console.log('There was an error retrieving the customer with the id:' + customerID, error);
+      });
+    } catch (error) {
+      console.error('There was an error retrieving the customer with the id:' + customerID, error);
+    }
+  }
 
   render() {
     return (

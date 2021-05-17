@@ -6,7 +6,7 @@ export async function fetchUser(cookie = '') {
   }
 
   const res = await fetch(
-    '/api/me',
+    '/api/auth/me',
     cookie
       ? {
         headers: {

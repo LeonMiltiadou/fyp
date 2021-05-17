@@ -1,1 +1,0 @@
-{"ast":null,"code":"var __jsx = React.createElement;\nimport React from 'react';\n\nvar Hero = function Hero(_ref) {\n  var merchant = _ref.merchant;\n  return __jsx(\"div\", {\n    className: \"hero\"\n  }, __jsx(\"img\", {\n    src: \"img/logo.svg\",\n    alt: \"Logo\"\n  }));\n};\n\nexport default Hero;","map":null,"metadata":{},"sourceType":"module"}
