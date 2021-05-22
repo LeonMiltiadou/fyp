@@ -1,0 +1,39 @@
+.navbar-top {
+    height: 158px;
+    li {
+        display: inline;
+    }
+
+    ul {
+        margin: 0;
+    }
+    z-index: 1;
+    border-bottom: 15px solid #934b00;
+}
+.navbar-myaccount {
+    font-size: x-large;
+    .underline{
+        text-decoration: underline;
+    }
+}
+.navbar-dark {
+    .navbar-nav {
+        .nav-link {
+            color: #fff;
+        }
+    }
+}
+
+.navbar-brand {
+    font-size: 72px;
+    font-family: "Open Sans", sans-serif;
+    text-transform: uppercase;
+}
+.navbar-expand {
+    .navbar-nav {
+        .nav-link {
+            padding-left: 2.5rem;
+            padding-right: 2.5rem;
+        }
+    }
+}
