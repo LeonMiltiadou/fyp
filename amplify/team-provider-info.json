@@ -1,0 +1,23 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-fypuserwebapp-dev-192051-authRole",
+            "UnauthRoleArn": "arn:aws:iam::320390259432:role/amplify-fypuserwebapp-dev-192051-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::320390259432:role/amplify-fypuserwebapp-dev-192051-authRole",
+            "Region": "eu-west-2",
+            "DeploymentBucketName": "amplify-fypuserwebapp-dev-192051-deployment",
+            "UnauthRoleName": "amplify-fypuserwebapp-dev-192051-unauthRole",
+            "StackName": "amplify-fypuserwebapp-dev-192051",
+            "StackId": "arn:aws:cloudformation:eu-west-2:320390259432:stack/amplify-fypuserwebapp-dev-192051/9c025e20-bbf3-11eb-9c22-020f0c65440e",
+            "AmplifyAppId": "d25apa14p30rtz"
+        },
+        "categories": {
+            "hosting": {
+                "amplifyhosting": {
+                    "appId": "d25apa14p30rtz",
+                    "type": "cicd"
+                }
+            }
+        }
+    }
+}
