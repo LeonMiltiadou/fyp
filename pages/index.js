@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Image from 'next/image'
 
 
-
 class App extends Component {
 
   constructor(props) {
