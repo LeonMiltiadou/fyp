@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Image from 'next/image'
 
+
+import { Amplify, withSSRContext } from "aws-amplify";
+import awsExports from "../src/aws-exports";
+Amplify.configure({ ...awsExports, ssr: true });
+
 class App extends Component {
 
   constructor(props) {
