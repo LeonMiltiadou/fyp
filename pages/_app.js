@@ -14,6 +14,10 @@ import { config } from '@fortawesome/fontawesome-svg-core';
 config.autoAddCss = false; /* eslint-disable import/first */
 //https://stackoverflow.com/questions/56334381/why-my-font-awesome-icons-are-being-displayed-big-at-first-and-then-updated-to-t
 
+import { Amplify, withSSRContext } from "aws-amplify";
+import awsExports from "../src/aws-exports";
+Amplify.configure({ ...awsExports, ssr: true });
+
 export default function MyApp({ Component, pageProps }) {
   return <div><Head>
     <link rel="preconnect" href="https://fonts.gstatic.com" />
