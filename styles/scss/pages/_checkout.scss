@@ -1,122 +1,153 @@
 .checkout {
-
-    &__wrapper {
-      display: flex;
-      justify-content: center;
-    }
-  
-    &__heading {
-      margin-top: 2.5rem;
-      margin-left: 3rem;
-      color: $text-white;
-    }
-  
-      &__form {
-          background-color: white;
-          border: 2px solid $text-primary;
-          width: 50%;
-          padding: 1.5rem 2rem;
-          margin: 3rem;
-          margin-top: 1.5rem;
-      }
-  
-      &__subheading {
-        font-size: 1.125rem;
-        font-style: bold;
-        color: $text-primary;
-  
-        &:not(:first-child) {
-          padding-top: 1.25rem;
-        }
-      }
-  
-      &__label {
-          display: block;
-          font-size: 0.75rem;
-          font-style: bold;
-          color: $text-white;
-          text-transform: uppercase;
-          padding-top: 0.75rem;
-      }
-  
-      &__input {
-        border: 1px solid $text-primary;
-        padding: 0.25rem 0.5rem;
-        font-size: 0.875rem;
-      }
-  
-      &__select {
-        border: 1px solid $text-primary;
-        padding: 0.25rem 0.5rem;
-  
-        select > option {
-          font-size: 0.875rem;
-        }
-      }
-  
-      &__btn-confirm {
-         background-color: $text-primary;
-         border: 1px solid $text-primary;
-         padding-left: 1.25rem;
-         padding: 0.5rem 0.75rem;
-         font-size: 0.75rem;
-         text-transform: uppercase;
-         color: white;
-         font-style: bold;
-         margin-top: 1.5rem;
-         display: block;
-  
-          &:hover {
-              background-color: lighten(#292B83, 10);
-          }
-  
-          &:disabled {
-            cursor: not-allowed;
-          }
-      }
-  
-      &__summary {
-        margin-top: 1.5rem;
-        border: 2px solid $text-primary;
-        width: 20%;
-        padding: 1.5rem 2rem;
-        height: max-content;
-  
-        h4 {
-          font-style: bold;
-          color: $text-primary;
-        }
-      }
-  
-      &__summary-details {
-        // @apply flex my-3;
-        display: flex;
-        margin: 0.75rem;
-      }
-  
-      &__summary-img {
-         width: 4rem;
-         height: 4rem;
-         border: 1px solid $text-primary;
-         margin-right: 0.75rem;
-         object-fit: cover;
-      }
-  
-      &__summary-name {
-        color: $text-primary;
-      }
-  
-      &__summary-value {
-        margin-left: auto;
-      }
-  
-      &__summary-price {
-        margin-right: auto;
-        justify-content: flex-end;
-
-  
-        span {
-          font-style: bold;
-        }
-      }
+  &__wrapper {
+    display: flex;
+    justify-content: center;
   }
+
+  &__heading {
+    margin-top: 2.5rem;
+    margin-left: 3rem;
+    color: $text-white;
+  }
+
+  &__form {
+    background-color: #94849b;
+    width: 50%;
+    padding: 1.5rem 2rem;
+    margin: 3rem;
+    margin-top: 1.5rem;
+  }
+
+  &__subheading {
+    font-size: 1.125rem;
+    font-style: bold;
+    color: $text-primary;
+
+    &:not(:first-child) {
+      padding-top: 1.25rem;
+    }
+  }
+
+  &__label {
+    display: block;
+    font-size: 0.75rem;
+    font-style: bold;
+    color: $text-white;
+    text-transform: uppercase;
+    padding-top: 0.75rem;
+  }
+
+  &__input {
+    background-color: transparent;
+    color: $text-white;
+    border: 1px solid $text-white;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+  }
+
+  &__input::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: rgba(255, 255, 255, 0.75);
+    opacity: 1; /* Firefox */
+  }
+
+  &__input:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: rgba(255, 255, 255, 0.75);
+  }
+
+  &__input::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: rgba(255, 255, 255, 0.75);
+  }
+
+  &__select {
+    background-color: transparent;
+    color: white;
+    border: 1px solid $text-white;
+    padding: 0.25rem 0.5rem;
+
+    select > option {
+      font-size: 0.875rem;
+    }
+  }
+
+  &__btn-confirm {
+    background-color: white;
+    border: 1px solid $text-primary;
+    padding-left: 1.25rem;
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    text-transform: uppercase;
+    color: #94849b;
+    font-style: bold;
+    margin-top: 1.5rem;
+    display: block;
+
+    &:hover {
+      background-color: #94849b;
+      color: white;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+
+  &__summary {
+    background-color: #d7b377;
+    margin-top: 1.5rem;
+    width: 20%;
+    padding: 1.5rem 2rem;
+    height: max-content;
+
+    h4 {
+      font-style: bold;
+      color: $text-primary;
+    }
+  }
+
+  &__summary-details {
+    // @apply flex my-3;
+    display: flex;
+    margin: 0.75rem;
+  }
+  
+  &__summary-divider {
+    // @apply flex my-3;
+    margin: 0.75rem;
+    height:1px;
+    background-color: rgba(255, 255, 255, 0.55);
+    width:100%;
+  }
+
+  &__summary-img {
+    width: 5rem;
+    height: 5rem;
+    margin-right: 0.75rem;
+    object-fit: contain;
+  }
+
+  &__summary-name {
+    color: $text-primary;
+  }
+
+  &__summary-value {
+    margin-left: auto;
+    color: $text-white;
+  }
+
+  &__summary-price {
+    margin-top: 30px;
+    color: $text-white;
+    margin-right: auto;
+    justify-content: flex-end;
+    font-size: 1.5rem;
+    border: 1px solid $text-white;
+    text-align: center;
+    padding: 10px;
+    span {
+      font-style: bold;
+    }
+  }
+}

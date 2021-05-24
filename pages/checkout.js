@@ -302,11 +302,13 @@ class Checkout extends Component {
                                     <p className="checkout__summary-name">{lineItem.quantity} x {lineItem.name}</p>
                                     <p className="checkout__summary-value">{lineItem.line_total.formatted_with_symbol}</p>
                                 </div>
+
+                                <div className="checkout__summary-divider"></div>
                             </>
                         ))}
                         <div className="checkout__summary-total">
                             <p className="checkout__summary-price">
-                                <span>Subtotal:</span>
+                                <span>Subtotal: </span>
                                 {cart.subtotal.formatted_with_symbol}
                             </p>
                         </div>
