@@ -17,6 +17,7 @@ class Cart extends Component {
 
   handleEmptyCart() {
     this.context.handleEmptyCart();
+    this.context.toggleCart();
   }
 
   renderEmptyCart() {
@@ -59,11 +60,16 @@ class Cart extends Component {
           <p className="cart__total-price">{cart.subtotal.formatted_with_symbol}</p>
         </div>
         <div className="cart__footer">
-          <button className="cart__btn-empty" onClick={this.handleEmptyCart}>Empty cart</button>
-          <button className="cart__btn-checkout"
-            onClick={() => Router.push({
-              pathname: '/checkout'
-            })}              >
+          <button className="cart__btn" onClick={this.handleEmptyCart}>Empty cart</button>
+          <button className="cart__btn"
+            onClick={() => {
+
+              this.context.toggleCart();
+
+              Router.push({
+                pathname: '/checkout'
+              })
+            }}>
             Checkout
           </button>
         </div>

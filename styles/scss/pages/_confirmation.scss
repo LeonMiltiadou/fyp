@@ -1,27 +1,26 @@
 .confirmation {
     &__wrapper {
-      border: 2px solid $text-primary;
-      background-color: white;
+      background-color: #94849B;
       width: 50%;
       padding: 2rem;
-      margin: auto;
-      margin-top: 5rem;
+      margin: 5rem auto;
       text-align: center;
     }
   
     &__wrapper-message {
-      p {
+      p,h4{
+        color: $text-white;
         margin-top: 0.25rem;
       }
   
       span {
-        color: $text-primary;
+        color: $text-white;
         text-transform: bold;
       }
     }
   
     &__wrapper-back {
-      color: $text-primary;
+      color: $text-white;
       text-transform: bold;
       margin-top: 0.75rem;
       text-decoration: none;

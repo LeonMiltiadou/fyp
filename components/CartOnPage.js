@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import CartItem from './CartItem';
+import CartItemOnPage from './CartItemOnPage';
 import { AppContext } from '../context/state.js'
 import Router from 'next/router';
 import Modal from 'react-bootstrap/Modal';
@@ -47,7 +47,7 @@ class Cart extends Component {
     return (
       <>
         {cart.line_items.map(lineItem => (
-          <CartItem
+          <CartItemOnPage
             item={lineItem}
             key={lineItem.id}
             {...this.props}
@@ -63,8 +63,8 @@ class Cart extends Component {
           <p className="cart-on-page__total-price">Subtotal: {cart.subtotal.formatted_with_symbol}</p>
         </div>
         <div className="cart-on-page__footer">
-          <button className="cart-on-page__btn-empty" onClick={this.handleEmptyCart}>Empty cart</button>
-          <button className="cart-on-page__btn-checkout"
+          <button className="cart-on-page__btn" onClick={this.handleEmptyCart}>Empty cart</button>
+          <button className="cart-on-page__btn"
             onClick={() => Router.push({
               pathname: '/checkout'
             })}              >

@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fyp
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      fyp: web
+  template:
+    metadata:
+      labels:
+        fyp: web
+    spec:
+      containers:
+      - name: fyp-cart-ms
+        image: leonmiltiadou/fyp-cart-ms:latest
+        ports:
+        - containerPort: 8002
+      - name: fyp-products-ms
+        image: leonmiltiadou/fyp-products-ms:latest
+        ports:
+        - containerPort: 8003
+      - name: fyp-ordermanagement-ms
+        image: leonmiltiadou/fyp-ordermanagement-ms:latest
+        ports:
+        - containerPort: 8004
+      - name: fyp-pusher-auth-ms
+        image: leonmiltiadou/fyp-pusher-auth-ms:latest
+        ports:
+        - containerPort: 8005
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fyp-entrypoint
+  namespace: default
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:eu-west-2:320390259432:certificate/248a1334-fe06-419b-b1e8-768dc913c1fb
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
+    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "8002,8003,8004,8005"
+    service.beta.kubernetes.io/aws-load-balancer-ssl-negotiation-policy: ELBSecurityPolicy-2016-08
+
+spec:
+  type: LoadBalancer
+  selector:
+    fyp: web
+  ports:
+  - name: fyp-cart-ms
+    port: 8002
+    targetPort: 8002
+  - name: fyp-products-ms
+    port: 8003
+    targetPort: 8003
+  - name: fyp-ordermanagement-ms
+    port: 8004
+    targetPort: 8004
+  - name: fyp-pusher-auth-ms
+    port: 8005
+    targetPort: 8005

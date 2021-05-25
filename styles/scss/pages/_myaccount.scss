@@ -2,7 +2,7 @@
     display: grid;
     grid-template-columns: 321px 253px 79px auto;
     grid-template-rows: 110px 228px 400px auto;
-    height: 82vh;
+    margin-bottom: 10vh;
 
     .myaccount-nav-title,
     .account-details-title {
@@ -30,7 +30,7 @@
     .account-details {
         grid-column-start: 4;
         grid-row-start: 2;
-        grid-row-end: 4;
+        grid-row-end: 5;
         padding: 0 30px;
         background-color: #94849b;
     }

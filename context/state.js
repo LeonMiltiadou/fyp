@@ -216,10 +216,10 @@ class AppWrapper extends Component {
    *
    * @param {object} newOrder The new order object data
    */
-  handleCaptureCheckout(newOrder) {
+  async handleCaptureCheckout(newOrder) {
 
     try {
-      ordermanagementAPI.post("/checkout/create", newOrder).then((order) => {
+      await ordermanagementAPI.post("/checkout/create", newOrder).then((order) => {
 
         this.setState({
           order: order.data,
@@ -228,12 +228,13 @@ class AppWrapper extends Component {
         // Store the order in session storage so we can show it again
         // if the user refreshes the page!
         window.localStorage.setItem('order_receipt', JSON.stringify(order));
-        // Clears the cart
-        this.refreshCart();
         // Send the user to the receipt
         Router.push({
           pathname: '/confirmation'
         })
+        
+        // Clears the cart
+        this.refreshCart();
       }).catch((error) => {
         console.log('There was an error confirming your order', error);
       });

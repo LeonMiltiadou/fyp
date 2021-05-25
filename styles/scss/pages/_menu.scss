@@ -2,9 +2,10 @@
     display: grid;
     grid-template-columns: 1307px 218px 355px auto;
     grid-template-rows: 108px auto auto;
-    height: 82vh;
+    margin-bottom: 10vh;
 
-    .menu-title, .cart-title {
+    .menu-title,
+    .cart-title {
         color: white;
         display: grid;
         align-items: center;
@@ -21,7 +22,6 @@
         grid-column-start: 1;
         grid-row-start: 1;
         margin-left: 160px;
-
     }
 
     .menu {
@@ -29,6 +29,7 @@
         grid-row-start: 2;
         display: grid;
         background-color: #94849b;
+        height: fit-content;
     }
 
     .cart {
